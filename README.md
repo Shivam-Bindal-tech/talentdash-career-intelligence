@@ -1,37 +1,29 @@
 # TalentDash — Career Intelligence Platform
 
-TalentDash is a high-performance, data-first career intelligence platform designed to serve structured, comparable, and decision-ready compensation data at internet scale.
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/Shivam-Bindal-tech/talentdash-career-intelligence)
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19-blue?logo=react)](https://react.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-v4-38bdf8?logo=tailwind-css)](https://tailwindcss.com/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)](https://www.typescriptlang.org/)
 
-Unlike a generic job board, TalentDash operates as a compensation search engine. It is built from scratch using **Next.js 15**, **React Server Components (RSC)**, **TypeScript Strict Mode**, and **Tailwind CSS v4** to deliver sub-second page loads, zero layout shifts, search-optimized semantic markup, and perfect accessibility compliance.
+TalentDash is a high-performance, data-first compensation search engine and career intelligence platform. Built from scratch using **Next.js 15**, **React Server Components (RSC)**, **TypeScript Strict Mode**, and **Tailwind CSS v4**, it delivers sub-second page loads, zero layout shifts, perfect SEO markup, and WCAG AA accessibility compliance.
 
 ---
 
 ## 🚀 Key Features
 
-*   **Salary Intelligence Dashboard (`/salaries`):** Core search engine for verified compensation records with advanced filtering (role, level, location) and multi-select filters.
-*   **Company Profiles (`/companies/[slug]`):** Static pre-rendered pages pre-generating all median compensation statistics, level distribution charts, and verified salary tables.
-*   **Compensation Comparison Tool (`/compare`):** Side-by-side candiate packages comparison matrix, calculating exact compensation deltas (base, bonus, stock, and total comp) in multiple currencies.
-*   **Currency Conversion:** Global display toggle with support for Lakhs and Crores numbering conventions (`Intl.NumberFormat('en-IN')`) for Indian Rupees (INR) alongside standard United States Dollars (USD).
-*   **URL State Synchronization:** Search parameters act as the single source of truth—all filters, sort configurations, paginations, and compared selections are persisted in the query string and survive page refreshes.
-*   **SEO Optimization:** Unique canonical mappings, Open Graph tags, automated meta tags, and structured JSON-LD (Dataset and Organization schemas).
-*   **Accessibility Improvements:** Passes WCAG AA contrast ratio standards (4.5:1 minimum) and maintains a strict sequential descending heading order (`h1` -> `h2`).
-*   **Server Components Architecture:** Keeps client-side bundle footprints negligible by processing all data filtering, sorting, pagination, and currency conversions on the server.
+*   **Salary Database (`/salaries`):** Core search engine for verified compensation records featuring multi-select filters (role, level, location) and full server-side processing.
+*   **Company Profiles (`/companies/[slug]`):** Static pre-rendered pages pre-calculating median compensation, level distribution, and verified salary tables.
+*   **Comparison Engine (`/compare`):** Side-by-side candidate package comparison matrix calculating base, bonus, stock, and total comp deltas.
+*   **Dual Currency Engine:** Direct currency conversion toggle supporting USD and INR formatting with Indian numbering conventions (Lakhs/Crores via `Intl.NumberFormat('en-IN')`).
+*   **URL State Sync:** All filters, sorting, paginations, and compared records act as the single source of truth in the query parameters, surviving page refreshes.
+*   **Strict Accessibility:** Passes WCAG AA contrast ratio standards (4.5:1 minimum) with semantic sequential headings.
 
 ---
 
-## 🛠️ Tech Stack
+## ⚡ Performance & Accessibility Metrics
 
-*   **Core Framework:** Next.js 15.1.0 (App Router)
-*   **Library:** React 19.2.4
-*   **Language:** TypeScript 5.x (Strict Mode)
-*   **Styling:** Tailwind CSS v4.0.0
-*   **Deployment Target:** Vercel
-
----
-
-## ⚡ Performance & Accessibility Optimizations
-
-TalentDash has been optimized to eliminate client-side hydration blocking and main-thread work. The results of the Lighthouse audits show:
+TalentDash eliminates client-side hydration blocking and heavy main-thread scripting by handling search, filtering, and pagination on the server.
 
 | Page | Performance | Accessibility | Best Practices | SEO | Total Blocking Time (TBT) |
 | :--- | :---: | :---: | :---: | :---: | :---: |
@@ -39,26 +31,26 @@ TalentDash has been optimized to eliminate client-side hydration blocking and ma
 | **Compare Page (`/compare`)** | **88** | **100** | **100** | **100** | **259 ms** |
 | **Company Page (`/companies/google`)** | **91** | **98** | **100** | **100** | **203 ms** |
 
-### Key Optimizations Implemented:
-1.  **Server-side Compare Resolution:**matched and resolved candidate comparison records on the server (`app/compare/page.tsx`) by parsing query parameters. This removed client-side hooks and selection recalculations, reducing TBT by **over 40%**.
-2.  **Reduced Hydration Payload:** Server-side mapping strips unused metadata from the 70-record dropdown list, reducing the JSON payload from **26.74 KB to 15.84 KB** (a **40.8% reduction**) and avoiding the serialization/hydration of **490 duplicate properties**.
-3.  **Lighthouse & Accessibility Remediation:** Adjusted color tokens globally in `app/globals.css` and badges to meet strict WCAG AA 4.5:1 contrast standards, and unified card heading tag flows from `<h3>` to `<h2>` to resolve heading order violations.
-4.  **Static Pre-generation (generateStaticParams):** Pre-rendered 14 company pages at compile time, achieving instantaneous load times.
+### Key Optimizations:
+1. **Server-side Compare Resolution:** Shifted candidate record resolution to the server, removing heavy client-side hooks and reducing TBT by **over 40%**.
+2. **Reduced Hydration Payload:** Server-side mapping strips unused metadata from the 70-record dropdown list, reducing the JSON payload from **26.74 KB to 15.84 KB** (a **40.8% reduction**) and avoiding the serialization of **490 duplicate properties**.
+3. **Contrast & Tag Alignment:** Remedied color contrast ratios on text elements and unified heading flows from `<h3>` to `<h2>` to achieve perfect audit scores.
+4. **Static Pre-generation:** Pre-rendered 14 company pages at compile time via `generateStaticParams` for instantaneous loading.
 
 ---
 
 ## 📁 Folder Structure
 
-```
+```text
 app/
-  ├── layout.tsx            # Global HTML layout, Inter font configuration, SEO base
-  ├── page.tsx              # Rich-aesthetic product landing page introducing TalentDash
-  ├── not-found.tsx         # Themed 404 page for invalid routes and unrecognized slugs
+  ├── layout.tsx            # Global HTML layout, Inter font, base SEO
+  ├── page.tsx              # Rich-aesthetic product landing page
+  ├── not-found.tsx         # Themed 404 page for invalid routes/slugs
   ├── salaries/
-  │   └── page.tsx          # Flagship Server Component parsing query parameters and JSON-LD
+  │   └── page.tsx          # Server Component parsing search parameters & JSON-LD
   ├── companies/
   │   └── [slug]/
-  │       └── page.tsx      # Static pre-rendered company profile page (generateStaticParams)
+  │       └── page.tsx      # Static pre-rendered company profile page (SSG)
   └── compare/
       └── page.tsx          # RSC wrapper for comparing selected records
 components/
@@ -70,22 +62,21 @@ components/
   │   └── compare/
   │       └── compare-tool.tsx   # Client component side-by-side delta matrix
 lib/
-  ├── config.ts             # Exchange rates configuration and static company profile lookup
-  ├── mock-data.ts          # 70-record normalized dataset with computed values at runtime
-  └── utils.ts              # Mathematical median calculations and lakh/crore formatting
+  ├── config.ts             # Exchange rates & static company profile metadata
+  ├── mock-data.ts          # 70-record normalized dataset with computed values
+  └── utils.ts              # Mathematical median & lakh/crore currency formatting
 types/
-  └── index.ts              # Strict TypeScript interfaces matching TalentDash contracts
+  └── index.ts              # Strict TypeScript interfaces matching schemas
 ```
 
 ---
 
-## 🔍 SEO Features
+## 🔍 SEO Features & Structured Data
 
-*   **Dynamic Metadata:** `generateMetadata()` generates page-specific semantic titles and meta descriptions (e.g. *"Staff Software Engineer Salaries at Amazon India | TalentDash"*).
-*   **Open Graph Tags:** Embedded metadata for rich previews on social shares, including site name, description, title, URL, and page type.
-*   **Canonical URLs:** Custom alternates dynamically mapped to prevent duplicate indexing across long-tail filter chains.
-*   **JSON-LD Structured Data:**
-    *   `/salaries` generates a `Dataset` schema containing active listings.
+*   **Dynamic Metadata:** Generates page-specific titles and meta descriptions (e.g., *"Staff Software Engineer Salaries at Amazon India | TalentDash"*).
+*   **Open Graph & Canonical Mappings:** Fully optimized for social previews and duplicate indexing prevention.
+*   **Structured Schema (JSON-LD):**
+    *   `/salaries` generates a `Dataset` schema of listings.
     *   `/companies/[slug]` generates an `Organization` schema incorporating headquarters, founding date, employee headcount ranges, and description profiles.
 
 ---
@@ -93,31 +84,19 @@ types/
 ## 💻 Getting Started
 
 ### Installation
-Clone this repository and install dependencies:
 ```bash
 npm install
 ```
 
-### Running Locally
-To launch the hot-reloading development server:
+### Running Locally (Development)
 ```bash
 npm run dev
 ```
-Open your browser to [http://localhost:3000](http://localhost:3000) to view the application.
+Open [http://localhost:3000](http://localhost:3000) to view the application.
 
----
-
-## 📦 Build Commands
-
-### Compile Production Build
-To compile the production bundles and generate static route parameter bindings:
+### Build and Start (Production)
 ```bash
 npm run build
-```
-
-### Start Production Server
-To run the production Next.js server locally:
-```bash
 npm run start
 ```
 
@@ -125,27 +104,21 @@ npm run start
 
 ## 📸 Screenshots
 
-Below are placeholders for the primary layouts of the TalentDash Career Intelligence Platform:
-
 ### Homepage
-*Placeholder for Homepage Layout*
-![Homepage Placeholder](/public/screenshots/homepage-placeholder.png)
+![Homepage](/public/screenshots/homepage.png)
 
 ### Salaries Page
-*Placeholder for Salaries Page & Filters Layout*
-![Salaries Page Placeholder](/public/screenshots/salaries-placeholder.png)
+![Salaries Page](/public/screenshots/salaries.png)
 
 ### Company Page
-*Placeholder for Company Profiles & Level Distribution Charts*
-![Company Page Placeholder](/public/screenshots/company-placeholder.png)
+![Company Page](/public/screenshots/company.png)
 
 ### Compare Page
-*Placeholder for Side-by-side Delta Checks Matrix*
-![Compare Page Placeholder](/public/screenshots/compare-placeholder.png)
+![Compare Page](/public/screenshots/compare.png)
 
 ---
 
 ## 👤 Author
 
 *   **Author:** Shivam Bindal
-*   **GitHub:** [Shivam-Bindal-tech](https://github.com/Shivam-Bindal-tech)
+*   **GitHub:** [@Shivam-Bindal-tech](https://github.com/Shivam-Bindal-tech)
