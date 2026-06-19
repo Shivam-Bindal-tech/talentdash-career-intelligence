@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+:root {
+  --background: #F7F7F7; /* App Background */
+  --foreground: #222222; /* Deep Text - Airbnb Black */
+  
+  /* Design system tokens */
+  --color-coral: #CF3438;
+  --color-airbnb-black: #222222;
+  --color-soft-dark-gray: #404040;
+  --color-neutral-gray: #5E5E5E;
+  --color-surface-bg: #FFFFFF;
+  --color-app-bg: #F7F7F7;
+  --color-light-border: #EBEBEB;
+  --color-success-green: #007A04;
+  --color-warning-orange: #FFB400;
+  --color-error-red: #B91C1C;
+  --color-hover-gray: #F2F2F2;
+  --color-navy-blue: #0C1E36;
+}
+
+@theme {
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+  
+  --color-coral: var(--color-coral);
+  --color-airbnb-black: var(--color-airbnb-black);
+  --color-soft-dark-gray: var(--color-soft-dark-gray);
+  --color-neutral-gray: var(--color-neutral-gray);
+  --color-surface-bg: var(--color-surface-bg);
+  --color-app-bg: var(--color-app-bg);
+  --color-light-border: var(--color-light-border);
+  --color-success-green: var(--color-success-green);
+  --color-warning-orange: var(--color-warning-orange);
+  --color-error-red: var(--color-error-red);
+  --color-hover-gray: var(--color-hover-gray);
+  --color-navy-blue: var(--color-navy-blue);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
